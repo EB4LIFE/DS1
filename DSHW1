@@ -1,15 +1,27 @@
+Yonatan Rubin 648831051
+Eitan Brown 346816549
+______________________
+Q1
+PART A AND B
 For j=0 to n-1
 {
   Int maxValue=value first slot of the array  (array[0])
   Int maxSlot=0
+ //Both of these lines effectively run n times
+ 
   For i=0 to n-1-j
   {
     Compare array[i] with current max value
     If value at array[i] is greater than maxValue, maxValue is replaced with array[i] and maxSlot=i
-	  Else continue
+    Else continue
+    //all commands inside this loop run n^2 times
   }
+  //above loop runs n times
     Swap array[n-j] with array[maxSlot]
+    //runs n times
+
 }
+TEST CASE 
 //Array 1 8 2 7 5 OG
 //maxval 1 max slot0
 //maxval 8 maxslot1
@@ -20,3 +32,22 @@ For j=0 to n-1
 //3rd run: j=2, n=5 third last --> 15278
 //4rth run: j=3, n=5 fourth last --> 12578
 //5th run: j=4, n=5, fifth last --> 12578
+PART C
+N^2
+________________________________________________
+Q2
+__________________________________________________
+Q3
+____________________________________________________
+Q4 - Run time complexity of 4 examples:
+1) f(n)
+n^2 / 2
+
+2) g(n,A)
+4n^2+n
+
+3) h(n)
+n/3
+
+4) q(n)
+n(log4(n)+n^2)
