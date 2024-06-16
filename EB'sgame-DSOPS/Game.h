@@ -4,6 +4,7 @@
 #include <vector>
 #include "Card.h"
 #include "Player.h"
+#include "OPchange.h" // Include OPchange header
 
 using namespace std;
 
@@ -13,6 +14,8 @@ public:
     vector<Card> discardPile;
     Player user;
     Player computer;
+    OPchange operationChangeManagerUser;     // OPchange instance for user
+    OPchange operationChangeManagerComputer; // OPchange instance for computer
 
     Game();
 
@@ -22,7 +25,9 @@ public:
     static void displayCard(const Card &card);
     static void printOperationChoice(const Player &player);
     void play();
+    bool playerRequestsOperationChange(Player &player);
 };
 
 #endif // GAME_H
+
 
