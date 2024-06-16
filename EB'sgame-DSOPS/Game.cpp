@@ -112,4 +112,3 @@ void Game::play() {
         computer.displayProgress();
     }
 }
-
