@@ -4,65 +4,67 @@
 #include <cstdlib>
 #include <ctime>
 
+using namespace std;
+
 void Player::performAction(const Card &card) {
     if (card.suit == "Hearts") {
         if (operation == FILL_QUEUE) {
             playerQueue.push(card);
-            std::cout << "Enqueued ";
+            cout << "Enqueued ";
         } else if (operation == EMPTY_QUEUE) {
             playerQueue.push(card);
-            std::cout << "Penalty (Enqueue) ";
+            cout << "Penalty (Enqueue) ";
         } else if (operation == FILL_STACK) {
             playerStack.push(card);
-            std::cout << "Pushed ";
+            cout << "Pushed ";
         } else if (operation == EMPTY_STACK) {
             playerStack.push(card);
-            std::cout << "Penalty (Push) ";
+            cout << "Penalty (Push) ";
         }
     } else if (card.suit == "Diamonds") {
         if (operation == EMPTY_QUEUE) {
             if (!playerQueue.empty()) {
-                std::cout << "Dequeued ";
+                cout << "Dequeued ";
                 Game::displayCard(playerQueue.front());
                 playerQueue.pop();
             } else {
-                std::cout << "Queue is empty!";
+                cout << "Queue is empty!";
             }
         } else if (operation == FILL_QUEUE) {
             penalty = -1;
-            std::cout << "Penalty (Dequeue) ";
+            cout << "Penalty (Dequeue) ";
         }
     } else if (card.suit == "Clubs") {
         if (operation == FILL_QUEUE) {
             playerQueue.push(card);
-            std::cout << "Enqueued ";
+            cout << "Enqueued ";
         } else if (operation == EMPTY_QUEUE) {
             playerQueue.push(card);
-            std::cout << "Penalty (Enqueue) ";
+            cout << "Penalty (Enqueue) ";
         } else if (operation == FILL_STACK) {
             playerStack.push(card);
-            std::cout << "Pushed ";
+            cout << "Pushed ";
         } else if (operation == EMPTY_STACK) {
             playerStack.push(card);
-            std::cout << "Penalty (Push) ";
+            cout << "Penalty (Push) ";
         }
     } else if (card.suit == "Spades") {
         if (operation == EMPTY_STACK) {
             if (!playerStack.empty()) {
-                std::cout << "Popped ";
+                cout << "Popped ";
                 Game::displayCard(playerStack.top());
                 playerStack.pop();
             } else {
-                std::cout << "Stack is empty!";
+                cout << "Stack is empty!";
             }
         } else if (operation == FILL_STACK) {
             penalty = -1;
-            std::cout << "Penalty (Pop) ";
+            cout << "Penalty (Pop) ";
         }
     }
-    std::cout << " - Drawn: ";
+    cout << " - Drawn: ";
     Game::displayCard(card);
-    std::cout << std::endl;
+    cout << endl;
 }
 
 bool Player::checkWin() {
@@ -73,7 +75,7 @@ bool Player::checkWin() {
     return false;
 }
 
-void Player::initializeForEmptyOperation(std::vector<Card> &deck) {
+void Player::initializeForEmptyOperation(vector<Card> &deck) {
     if (operation == EMPTY_QUEUE) {
         for (int i = 0; i < 8 && !deck.empty(); ++i) {
             playerQueue.push(deck.back());
@@ -89,13 +91,13 @@ void Player::initializeForEmptyOperation(std::vector<Card> &deck) {
 
 void Player::displayProgress() {
     if (operation == FILL_QUEUE) {
-        std::cout << "Queue size: " << playerQueue.size() << " / 8" << std::endl;
+        cout << "Queue size: " << playerQueue.size() << " / 8" << endl;
     } else if (operation == EMPTY_QUEUE) {
-        std::cout << "Queue remaining: " << playerQueue.size() << std::endl;
+        cout << "Queue remaining: " << playerQueue.size() << endl;
     } else if (operation == FILL_STACK) {
-        std::cout << "Stack size: " << playerStack.size() << " / 8" << std::endl;
+        cout << "Stack size: " << playerStack.size() << " / 8" << endl;
     } else if (operation == EMPTY_STACK) {
-        std::cout << "Stack remaining: " << playerStack.size() << std::endl;
+        cout << "Stack remaining: " << playerStack.size() << endl;
     }
 }
 
