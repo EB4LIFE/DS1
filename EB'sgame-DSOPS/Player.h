@@ -6,6 +6,8 @@
 #include <vector>
 #include "Card.h"
 
+using namespace std;
+
 enum Operation {
     FILL_QUEUE,
     EMPTY_QUEUE,
@@ -15,14 +17,14 @@ enum Operation {
 
 class Player {
 public:
-    std::queue<Card> playerQueue;
-    std::stack<Card> playerStack;
+    queue<Card> playerQueue;
+    stack<Card> playerStack;
     Operation operation;
     int penalty;
 
     void performAction(const Card &card);
     bool checkWin();
-    void initializeForEmptyOperation(std::vector<Card> &deck);
+    void initializeForEmptyOperation(vector<Card> &deck);
     void displayProgress();
     void chooseOperation();
 };
