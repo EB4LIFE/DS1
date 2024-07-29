@@ -37,3 +37,43 @@ Function RemoveTask(ID)
         if id != ID:
             Queue.enqueue(id)
 
+__________________________________________
+EFFICENT:
+Function RemoveTask(ID):
+    // Initialize a temporary list to store tasks that are not removed
+    TempTaskList = emptyList()
+
+    // Iterate through TaskList to find and remove the TaskNode with the given ID
+    for each taskNode in TaskList:
+        if taskNode.ID == ID:
+            // Skip the taskNode with the ID to be removed
+            continue
+        // If not the taskNode to be removed, add it to TempTaskList
+        TempTaskList.append(taskNode)
+    
+    // Replace TaskList with TempTaskList
+    TaskList = TempTaskList
+
+    // Update InDegreeArray
+    // Decrease the in-degree count of each task that depended on the removed task
+    for each taskNode in TaskList:
+        for each dependency in taskNode.Dependencies:
+            if dependency == ID:
+                // Decrease the in-degree of the current task
+                InDegreeArray[taskNode.ID] -= 1
+                // If in-degree becomes 0, enqueue the task ID
+                if InDegreeArray[taskNode.ID] == 0:
+                    Queue.enqueue(taskNode.ID)
+    
+    // Remove the ID from InDegreeArray
+    // Set the entry to zero or remove the entry as needed
+    InDegreeArray[ID] = 0
+    
+    // Remove the ID from the Queue if it exists
+    // Temporarily use a new queue to rebuild without the removed ID
+    TempQueue = emptyQueue()
+    while not Queue.isEmpty():
+        id = Queue.dequeue()
+        if id != ID:
+            TempQueue.enqueue(id)
+    Queue = TempQueue
