@@ -1,1 +1,39 @@
+//Global Header for every method: 
+//TaskNode:
+//    int ID
+//    list<int> Dependencies
+//TaskList: list<TaskNode> 
+//InDegreeArray: array[int]
+//Queue: queue<int>
+
+
+INEFFICENT GRADE 95%
+
+Function RemoveTask(ID)
+    // Find and remove the TaskNode with the given ID from TaskList
+    // Iterate through TaskList to find the TaskNode with ID
+    for each taskNode in TaskList:
+        if taskNode.ID == ID:
+            TaskList.remove(taskNode)
+            break
+    // Update InDegreeArray
+    // Decrease the in-degree count of each task that depended on the removed task
+    for each taskNode in TaskList:
+        for each dependency in taskNode.Dependencies:
+            if dependency == ID:
+                // Decrease the in-degree of the current task
+                InDegreeArray[taskNode.ID] -= 1
+                // If in-degree becomes 0, enqueue the task ID
+                if InDegreeArray[taskNode.ID] == 0:
+                    Queue.enqueue(taskNode.ID)
+    
+    // Remove the ID from InDegreeArray
+    InDegreeArray[ID] = null
+    
+    // Remove the ID from the Queue if it exists
+    tempQueue = Queue
+    Queue = emptyQueue()
+    for each id in tempQueue:
+        if id != ID:
+            Queue.enqueue(id)
 
