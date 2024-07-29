@@ -1,0 +1,19 @@
+Problem: Task Scheduling with Dependencies
+You are tasked with designing a system to manage and schedule tasks. Each task has a unique identifier and a set of dependencies. A task can only be scheduled if all of its dependencies have been completed.
+
+Requirements:
+
+Data Structure Design:
+
+Task: Each task has the following attributes:
+ID: A unique identifier for the task (integer).
+Dependencies: A list of task IDs that must be completed before this task can be scheduled.
+Operations:
+
+AddTask(ID, Dependencies): Adds a new task with the given ID and list of dependencies to the system. If a task with the same ID already exists, it should update the dependencies.
+RemoveTask(ID): Removes the task with the given ID from the system. Ensure that removing a task does not break the dependency chains of other tasks.
+GetSchedule(): Returns a list of task IDs in the order they should be executed. The order should respect the dependencies of each task. If it's not possible to schedule the tasks (e.g., due to circular dependencies), the function should return an error or indicate that scheduling is not possible.
+Constraints:
+
+You must handle up to 10,000 tasks.
+The system should efficiently manage task addition, removal, and scheduling.
