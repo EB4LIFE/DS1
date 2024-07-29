@@ -1,1 +1,14 @@
+FindBook(ISBN) 
+//base case exit
+ if (root == null):
+        return root 
+// Traverse the tree to find the node
+if (ISBN == root.ISBN) 
+  return root.title and root.price 
+//left subtree traverse
+if (ISBN < root.ISBN) 
+root.left.FindBook(ISBN)
+//right subtree 
+if (ISBN > root.ISBN) 
+root.right.FindBook(ISBN)
 
