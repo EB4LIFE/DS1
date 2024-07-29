@@ -1,1 +1,43 @@
+Problem: Online Book Store
+You are building a data structure for an online bookstore. The bookstore needs to support the following operations efficiently:
+AddBook(ISBN, Title, Price) - Adds a new book to the collection. Each book is identified by a unique ISBN.
+RemoveBook(ISBN) - Removes a book from the collection using its ISBN.
+FindBook(ISBN) - Finds and returns the details (Title, Price) of a book using its ISBN.
+UpdatePrice(ISBN, NewPrice) - Updates the price of a book identified by its ISBN.
+ListAllBooksInRange(MinPrice, MaxPrice) - Lists all books with prices within a specified range [MinPrice, MaxPrice], sorted by price.
+Requirements:
+The AddBook, RemoveBook, FindBook, and UpdatePrice operations should be efficient, ideally O(log n).
+The ListAllBooksInRange operation should be efficient and ideally list the books in O(k + log n) time, where k is the number of books in the range.
+-------------------------------------------------------------------------------------
+function Add(root, ISBN, Title, Price):
+    if (root==null)//placing user book
+        {return new Node(ISBN, Title, Price)}
+//Tree was not empty so we get here 
+// Insert the node into the correct subtree
+    if (ISBN < root.ISBN)
+        {root.left = Add(root.left, ISBN, Title, Price)}
+    else
+        {root.right = Add(root.right, ISBN, Title, Price)}
+//Update the height of the current node
+    root.height = 1 + max(Height(root.left), Height(root.right))
+// Get the balance factor of the current node --balance factor
+    balance = GetBalance(root)
+    // Left-Left Case
+    if (balance > 1 and ISBN < root.left.ISBN)
+        {return RightRotate(root)}
+    // Right-Right Case
+    if (balance < -1 and ISBN > root.right.ISBN)
+        {return LeftRotate(root)}
+    // Left-Right Case
+    if (balance > 1 and ISBN > root.left.ISBN)
+        {root.left = LeftRotate(root.left)
+        return RightRotate(root)}
+    // Right-Left Case
+    if (balance < -1 and ISBN < root.right.ISBN)
+        {root.right = RightRotate(root.right)
+        return LeftRotate(root)}
+
+    // Return the node pointer
+    return root
+
 
