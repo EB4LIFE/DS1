@@ -1,1 +1,26 @@
+function ListAllBooksInRange(root, MinPrice, MaxPrice):
+    // Create a doubly linked list to hold books within the range
+    L = new DoublyLinkedList()
+    
+    // Base case: if the root is null, return the empty list
+    if root == null:
+        return L
+    
+    // Traverse the left subtree if the minimum price is less than the root's price
+    if MinPrice < root.price:
+        L = ListAllBooksInRange(root.left, MinPrice, MaxPrice)
+    
+    // If the root's price is within the specified range, add it to the list
+    if MinPrice <= root.price <= MaxPrice:
+        L.insertSorted(root.ISBN, root.Title, root.price)
+    
+    // Traverse the right subtree if the maximum price is greater than the root's price
+    if MaxPrice > root.price:
+        rightList = ListAllBooksInRange(root.right, MinPrice, MaxPrice)
+        
+        // Merge the right list with the current list
+        L.merge(rightList)
+    
+    // Return the sorted list of books within the range
+    return L
 
