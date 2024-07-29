@@ -1,0 +1,53 @@
+function RemoveBook(root, ISBN):
+    if (root == null):
+        return root // Tree is empty or node not found
+
+    // Traverse the tree to find the node to remove
+    if (ISBN < root.ISBN):
+        root.left = RemoveBook(root.left, ISBN)
+    else if (ISBN > root.ISBN):
+        root.right = RemoveBook(root.right, ISBN)
+    else: // Node with ISBN == root.ISBN found
+        // Case 1: Node with only one child or no child
+        if (root.left == null):
+            temp = root.right
+            root = null // Free the node
+            return temp
+        else if (root.right == null):
+            temp = root.left
+            root = null // Free the node
+            return temp
+
+        // Case 2: Node with two children
+        // Find the in-order predecessor (largest in the left subtree)
+        temp = FindMax(root.left)
+
+        // Copy the in-order predecessor's content to this node
+        root.ISBN = temp.ISBN
+        root.Title = temp.Title
+        root.Price = temp.Price
+
+        // Delete the in-order predecessor
+        root.left = RemoveBook(root.left, temp.ISBN)
+
+    // Update the height of the current node
+    root.height = 1 + max(Height(root.left), Height(root.right))
+
+    // Balance the node if needed
+    balance = GetBalance(root)
+    // Left-Left Case
+    if (balance > 1 and GetBalance(root.left) >= 0):
+        return RightRotate(root)
+    // Right-Right Case
+    if (balance < -1 and GetBalance(root.right) <= 0):
+        return LeftRotate(root)
+    // Left-Right Case
+    if (balance > 1 and GetBalance(root.left) < 0):
+        root.left = LeftRotate(root.left)
+        return RightRotate(root)
+    // Right-Left Case
+    if (balance < -1 and GetBalance(root.right) > 0):
+        root.right = RightRotate(root.right)
+        return LeftRotate(root)
+
+    return root
