@@ -1,1 +1,13 @@
-
+UpdatePrice(ISBN, NewPrice)
+//base case exit
+ if (root == null)
+        return root 
+// Traverse the tree to find the node to change price
+if (ISBN == root.ISBN) 
+  root.price = NewPrice
+//left subtree traverse
+if (ISBN < root.ISBN) 
+root.left.UpdatePrice(ISBN, NewPrice)
+//right subtree 
+if (ISBN > root.ISBN) 
+root.right.UpdatePrice(ISBN, NewPrice)
