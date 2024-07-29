@@ -1,1 +1,33 @@
+//Global Header for every method: 
+//TaskNode:
+//    int ID
+//    list<int> Dependencies
+//TaskList: list<TaskNode> 
+//InDegreeArray: array[int]
+//Queue: queue<int>
+
+
+
+Function AddTask(ID, Dependencies):
+    // Create a new TaskNode with the given ID and Dependencies
+    //based on my global header
+    //task node has 2 param
+    TaskNode = {ID: ID, Dependencies: Dependencies}
+
+    // Add the TaskNode to the TaskList
+    TaskList.append(TaskNode)
+
+    // Ensure InDegreeArray has enough space for all dependencies
+    while InDegreeArray.size <= ID:
+        InDegreeArray.append(0)
+
+    // For each dependency, increment the in-degree count
+    for each dependency in Dependencies:
+        while InDegreeArray.size <= dependency:
+            InDegreeArray.append(0)
+        InDegreeArray[dependency] += 1
+
+    // If the task has no dependencies, add its ID to the Queue
+    if InDegreeArray[ID] == 0:
+        Queue.enqueue(ID)
 
