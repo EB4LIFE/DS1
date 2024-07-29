@@ -1,0 +1,30 @@
+function Add(root, ISBN, Title, Price):
+    if (root==null)//placing user book
+        {return new Node(ISBN, Title, Price)}
+//Tree was not empty so we get here 
+// Insert the node into the correct subtree
+    if (ISBN < root.ISBN)
+        {root.left = Add(root.left, ISBN, Title, Price)}
+    else
+        {root.right = Add(root.right, ISBN, Title, Price)}
+//Update the height of the current node
+    root.height = 1 + max(Height(root.left), Height(root.right))
+// Get the balance factor of the current node --balance factor
+    balance = GetBalance(root)
+    // Left-Left Case
+    if (balance > 1 and ISBN < root.left.ISBN)
+        {return RightRotate(root)}
+    // Right-Right Case
+    if (balance < -1 and ISBN > root.right.ISBN)
+        {return LeftRotate(root)}
+    // Left-Right Case
+    if (balance > 1 and ISBN > root.left.ISBN)
+        {root.left = LeftRotate(root.left)
+        return RightRotate(root)}
+    // Right-Left Case
+    if (balance < -1 and ISBN < root.right.ISBN)
+        {root.right = RightRotate(root.right)
+        return LeftRotate(root)}
+
+    // Return the node pointer
+    return root
