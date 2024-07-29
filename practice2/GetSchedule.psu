@@ -1,1 +1,35 @@
+//Global Header for every method: 
+//TaskNode:
+//    int ID
+//    list<int> Dependencies
+//TaskList: list<TaskNode> 
+//InDegreeArray: array[int]
+//Queue: queue<int>
+
+
+Function GetSchedule()
+    // Initialize an empty list to store the scheduled tasks
+    Schedule = emptyList()
+
+    // Process tasks while the queue is not empty
+    while not Queue.isEmpty():
+        // Dequeue the task ID
+        TaskID = Queue.dequeue()
+        
+        // Add the task ID to the Schedule
+        Schedule.append(TaskID)
+        
+        // Find the task node with the given TaskID
+        for each taskNode in TaskList:
+            if taskNode.ID == TaskID:
+                // Iterate through dependencies of the current task node
+                for each dependency in taskNode.Dependencies:
+                    // Decrease the in-degree count of each dependent task
+                    InDegreeArray[dependency] -= 1
+                    // If the in-degree becomes 0, enqueue the dependent task ID
+                    if InDegreeArray[dependency] == 0:
+                        Queue.enqueue(dependency)
+    
+    // Return the scheduled tasks
+    return Schedule
 
